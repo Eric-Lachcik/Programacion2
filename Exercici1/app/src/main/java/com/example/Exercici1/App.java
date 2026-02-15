@@ -6,44 +6,95 @@ package com.example.Exercici1;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class App {
-    public static String A;
-    public static Boolean resp;
     
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        int i = 3;
-        while(i>=0) {
+        int intentos = 0;
+        String A = null;
+        while(intentos < 3) {
             System.out.println("Introduzca el nombre del archivo que quieres abrir: ");
             A = scanner.nextLine();
-            resp = DevolucionArchivo(A);
-            if(resp){
-
-            } else {
-                i--;
+            try {
+                ComprobarArchivo(A);
+                break;
+            } catch (FileDoesNotExistException e) {
+                System.err.println("Excepció: " + e.getMessage());
+                intentos++;
             }
         }
         
-    }
-    
-    public static boolean DevolucionArchivo(String preArchivo) {
-        try {
-            ComprobarArchivo(preArchivo);
-            return true;
-        } catch (FileDoesNotExistException e) {
-            System.err.println("Excepció: " + e.getMessage());
+        if (intentos == 3) {
+            try {
+                throw new MaxAttemptsExceededException(
+                    "S'han superat els intents màxims per introduir el nom del fitxer"
+                );
+            } catch (MaxAttemptsExceededException e) {
+                System.err.println(e.getMessage());
+            }
         }
-        return false;
+        
+        try {
+            String primeraLinea = leerPrimeraLinea(A); 
+            validarPrimeraLinea(primeraLinea);
+
+            System.out.println("Contingut primera línia: " + primeraLinea);
+
+        } catch (EmptyFirstLineException | SeparatorNotFoundException | InvalidFormatException e) {
+            System.err.println(e.getMessage());
+        } catch (IOException e) {
+            System.err.println("Error llegint el fitxer.");
+        }
     }
     
+
     public static void ComprobarArchivo(String archivo) throws FileDoesNotExistException {
-        File hojatexto = new File ("C:\\Users\\blu20\\Desktop\\Eric\\Programacion\\Exercici1\\app\\src\\main\\java\\com\\example\\Exercici1\\App.java\\" + archivo +".txt");
+        File hojatexto = new File (archivo +".txt");
         if(hojatexto.exists()){
             System.out.println("El archivo existe");
         }else {
             throw new FileDoesNotExistException("El fitxer especificat no existeix");
+        }
+    }
+    
+    public static String leerPrimeraLinea(String archivo) throws IOException, EmptyFirstLineException {
+
+        BufferedReader br = new BufferedReader(new FileReader(archivo));
+        String linea = br.readLine();
+        br.close();
+
+        if (linea == null || linea.trim().isEmpty()) {
+            throw new EmptyFirstLineException(
+                "La primera línia del fitxer està buida."
+            );
+        }
+
+        return linea;
+    }
+    
+    public static void validarPrimeraLinea(String linea)throws SeparatorNotFoundException, InvalidFormatException {
+
+        if (!linea.contains(" ")) {
+            throw new SeparatorNotFoundException(
+                "No s'ha trobat el blanc separador a la primera línia"
+            );
+        }
+
+        String[] parts = linea.trim().split("\\s+");
+        if (parts.length < 2) {
+            throw new SeparatorNotFoundException(
+                "No s'ha trobat el blanc separador a la primera línia"
+            );
+        }
+
+        String numeroStr = parts[parts.length - 1];
+        try {
+            Integer.valueOf(numeroStr);
+        } catch (NumberFormatException e) {
+            throw new InvalidFormatException("Error de format del nombre enter");
         }
     }
 }
