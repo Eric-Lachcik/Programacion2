@@ -27,8 +27,9 @@ public class Exercici3 extends JFrame {
     
     
     public Exercici3() {
-        setSize(600, 400);
+        setSize(500, 400);
         setTitle("Calculadora basica");
+        setLocationRelativeTo(null);
         initComponents();
     }
     
@@ -102,21 +103,11 @@ public class Exercici3 extends JFrame {
         // Control del Botones
         SumarB.addActionListener(this::sumaOperacion);
         
-        RestarB.addActionListener((ActionEvent evt) -> {
-            restaOperacion(evt);
-        });
+        RestarB.addActionListener(this::restaOperacion);
         
-        MultiplicarB.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                multiOperacion(evt);
-            }
-        });
+        MultiplicarB.addActionListener(this::multiOperacion);
         
-        DividirB.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                diviOperacion(evt);
-            }
-        });
+        DividirB.addActionListener(this::diviOperacion);
         
     }
     
