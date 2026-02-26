@@ -100,16 +100,10 @@ public class Exercici3 extends JFrame {
         DividirB.setBounds(295, 280, 45, 45);
         
         // Control del Botones
-        SumarB.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                sumaOperacion(evt);
-            }
-        });
+        SumarB.addActionListener(this::sumaOperacion);
         
-        RestarB.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                restaOperacion(evt);
-            }
+        RestarB.addActionListener((ActionEvent evt) -> {
+            restaOperacion(evt);
         });
         
         MultiplicarB.addActionListener(new ActionListener() {
