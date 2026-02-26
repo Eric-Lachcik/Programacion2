@@ -114,13 +114,13 @@ public class Exercici3 extends JFrame {
         
         MultiplicarB.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                System.out.println("Bombo clat3");
+                multiOperacion(evt);
             }
         });
         
         DividirB.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                System.out.println("Bombo clat4");
+                diviOperacion(evt);
             }
         });
         
@@ -161,6 +161,44 @@ public class Exercici3 extends JFrame {
             Resultadotf.setText("Conchetumadre pon numeros");
         }
     }
+    
+    
+    private void multiOperacion(ActionEvent evt) {
+        try {
+            double valor1;
+            double valor2;
+            double resultado;
+            
+            valor1 = Double.parseDouble(Valor1tf.getText());
+            valor2 = Double.parseDouble(Valor2tf.getText());
+            
+            resultado = valor1*valor2;
+            String s = String.format("%.2f", resultado);
+            Resultadotf.setText(s);
+            
+        } catch(NumberFormatException e){
+            Resultadotf.setText("Conchetumadre pon numeros");
+        }
+    }
+    
+    private void diviOperacion(ActionEvent evt) {
+        try {
+            double valor1;
+            double valor2;
+            double resultado;
+            
+            valor1 = Double.parseDouble(Valor1tf.getText());
+            valor2 = Double.parseDouble(Valor2tf.getText());
+            
+            resultado = valor1/valor2;
+            String s = String.format("%.2f", resultado);
+            Resultadotf.setText(s);
+            
+        } catch(NumberFormatException e){
+            Resultadotf.setText("Conchetumadre pon numeros");
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
