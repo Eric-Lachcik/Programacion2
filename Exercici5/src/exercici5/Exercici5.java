@@ -21,7 +21,7 @@ public class Exercici5 extends JFrame implements ActionListener {
     String nump = "", num = ""; //nump significa nombre precedent
     //num:  numero actual
     //nump: numero anterior/precedent
-    double mem = 0;
+    String mem = "0";
     
     public Exercici5() {
         setTitle("Calculadora Bàsica");
@@ -96,26 +96,46 @@ public class Exercici5 extends JFrame implements ActionListener {
         } else if (c == '=') {
             calc();
             //nombres negatius
-        } else if (c == '-' && (op == ' ') && num.equals("")) {
+        } else if (c == '-' && num.equals("") || c == '-' && nump.equals("")) {
+            System.out.println("El caracter " + c + "la op " + op);
             num = num + c;
             t.setText(num);
             //operadors
             
         } else if (c == 'M') {
             char c1 = ((JButton) evt.getSource()).getText().charAt(1);
-            double valor;
+            float valor;
+            float memory;
+            float resultado;
             switch (c1) {
                 case '+':
-                    valor = Double.parseDouble(num);
-                    mem = mem + valor;
+                    if(num.equals("")) {
+                        valor = Float.parseFloat(nump);
+                        memory = Float.parseFloat(mem);
+                        resultado = memory + valor;
+                        mem = Float.toString(resultado);
+                    } else {
+                        valor = Float.parseFloat(num);
+                        memory = Float.parseFloat(mem);
+                        resultado = memory + valor;
+                        mem = Float.toString(resultado);
+                    }       
                     break;
                 case '-':
-                    valor = Double.parseDouble(num);
-                    mem = mem - valor;
+                    if(num.equals("")) {
+                        valor = Float.parseFloat(nump);
+                        memory = Float.parseFloat(mem);
+                        resultado = memory - valor;
+                        mem = Float.toString(resultado);
+                    } else {
+                        valor = Float.parseFloat(num);
+                        memory = Float.parseFloat(mem);
+                        resultado = memory - valor;
+                        mem = Float.toString(resultado);
+                    }  
                     break;
                 default:
-                    String s = String.format("%.2f", mem);
-                    num = s;
+                    num = mem;
                     t.setText(num);
                     break;
             }
