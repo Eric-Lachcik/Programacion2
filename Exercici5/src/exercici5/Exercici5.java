@@ -97,7 +97,6 @@ public class Exercici5 extends JFrame implements ActionListener {
             calc();
             //nombres negatius
         } else if (c == '-' && num.equals("") || c == '-' && nump.equals("")) {
-            System.out.println("El caracter " + c + "la op " + op);
             num = num + c;
             t.setText(num);
             //operadors
