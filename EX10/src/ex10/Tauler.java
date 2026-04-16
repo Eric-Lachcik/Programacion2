@@ -70,6 +70,19 @@ public class Tauler extends JPanel {
     public Dimension getPreferredSize() {
         return new Dimension(MAXIM, MAXIM);
     }
+    
+    boolean posicioValida(int fila, int col) {
+        for (int i = 0; i < DIMENSIO; i++) {
+            for (int j = 0; j < DIMENSIO; j++) {
+                if (isOcupat(i, j)) {
+                    if (i == fila) return false;              // misma fila
+                    if (j == col) return false;               // misma columna
+                    if (Math.abs(fila - i) == Math.abs(col - j)) return false; // diagonal
+                }
+            }
+        }
+        return true;
+    }
 
     void Posa(String s, int i, int i0) {
         t[i][i0].setPesa(new Pesa(s));

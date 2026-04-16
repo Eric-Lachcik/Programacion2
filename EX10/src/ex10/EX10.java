@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import java.awt.event.MouseListener;
 
 /**
  *
@@ -52,24 +53,15 @@ public class EX10 extends JFrame implements MouseListener {
             i = e.getY() / Tauler.COSTAT; // Fila 
             j = e.getX() / Tauler.COSTAT; // Columna
             
-//            Codi antic 
-//            Obtindre casella clicada
-//            int x = e.getX();
-//            int y = e.getY();
-//            boolean trobat = false;
-//            for (i = 0; i < Tauler.DIMENSIO && !trobat; i++) {
-//                for (j = 0; j < Tauler.DIMENSIO && !trobat; j++) {
-//                    trobat = tauler.dinsCasella(i, j, x, y);
-//                }
-//            }
-//            i--;
-//            j--;
             System.out.println("Click a: " + i + ", " + j);
             if (!tauler.isOcupat(i, j)) {
-                tauler.Posa(Pesa.REINAN, i, j);
-                numReines++;
+                if (tauler.posicioValida(i, j)) {
+                    tauler.Posa(Pesa.REINAN, i, j);
+                    numReines++;
+                } else {
+                    Toolkit.getDefaultToolkit().beep();
+                }
             } else {
-                Toolkit.getDefaultToolkit().beep();
                 tauler.buida(i, j);
                 numReines--;
             }
