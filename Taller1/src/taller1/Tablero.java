@@ -122,7 +122,7 @@ public class Tablero extends JPanel {
         if (hojasComidas == totalHojas) {
             reproducirSonido("victoria.wav");
             JOptionPane.showMessageDialog(this,
-                "¡Enhorabuena!\n\nLa hormiga se ha comido todas las hojas.",
+                "ENHORABUENA\n\n¡¡¡Has completado el juego!!!\n\nLA HORMIGA SE HA COMIDO TODAS LAS HOJAS",
                 "Juego finalizado",
                 JOptionPane.INFORMATION_MESSAGE);
             System.exit(0);
